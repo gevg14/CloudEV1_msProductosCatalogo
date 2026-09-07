@@ -8,4 +8,4 @@ INSERT INTO productos (nombre, descripcion, precio, stock, categoria)
 VALUES ('Teclado Mecánico Switch Red', 'Formato 75% con iluminación RGB', 59990.00, 30, 'Accesorios');
 
 INSERT INTO productos (nombre, descripcion, precio, stock, categoria) 
-VALUES ('Monitor Gaming 27 IPS', '165Hz 1ms FHD con FreeSync', 189990.00, 15, 'Pantallas');Ñ
+VALUES ('Monitor Gaming 27 IPS', '165Hz 1ms FHD con FreeSync', 189990.00, 15, 'Pantallas');
