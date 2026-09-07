@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:productosdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  # --- Azure AD / Microsoft Entra ID (IDaaS) ---
+  # Reemplazar {tenant-id} por el ID del tenant creado en Azure AD.
+  # Spring Security descubre el JWKS automaticamente desde este issuer.
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://login.microsoftonline.com/{tenant-id}/v2.0
+          # audience se valida manualmente via un JwtDecoder personalizado
+          # si se requiere validar el "aud" contra el client-id de la app.

@@ -1,0 +1,24 @@
+# Esta configuracion reemplaza por completo a src/main/resources/application.yml
+# durante la ejecucion de tests (el classpath de test tiene prioridad).
+#
+# Usamos "jwk-set-uri" en lugar de "issuer-uri": a diferencia de issuer-uri,
+# NO dispara una llamada HTTP real al arrancar el contexto de Spring, por lo
+# que los tests no dependen de tener ya un tenant de Azure AD creado.
+spring:
+  datasource:
+    url: jdbc:h2:mem:productosdb-test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://example.com/.well-known/jwks.json
+
+server:
+  port: 0
