@@ -1,14 +1,40 @@
-spring:
-  application:
-    name: ms-productos-catalogo
-  profiles:
-    active: dev
-
 server:
   port: 8081
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
+spring:
+  application:
+    name: ms-productos-catalogo
+
+  # --- Base de Datos H2 (En memoria) ---
+  datasource:
+    url: jdbc:h2:mem:productosdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+
+  # --- Consola H2 (Accesible en http://localhost:8081/h2-console) ---
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # --- JPA y Ejecución de data.sql ---
+  jpa:
+    defer-datasource-initialization: true  # Espera a que Hibernate cree las tablas antes de ejecutar data.sql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: always  # Forza la carga del archivo data.sql en cada inicio
+
+  # --- OAuth2 Resource Server (Azure AD / Microsoft Entra ID) ---
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://login.microsoftonline.com/6db58306-b3da-4d2e-99ea-5df5304ab630/v2.0
